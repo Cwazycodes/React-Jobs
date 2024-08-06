@@ -83,20 +83,6 @@
         "contactEmail": "contact@ipsumlorem.com",
         "contactPhone": "555-555-5555"
       }
-    },
-    {
-      "id": "a069",
-      "title": "Test Job 1",
-      "type": "Full-Time",
-      "location": "Blackburn, Lancashire",
-      "description": "This is a test",
-      "salary": "Under $50K",
-      "company": {
-        "name": "Cwazy Codes",
-        "description": "This is an awesome company",
-        "contactEmail": "Cwazy@gmail.com",
-        "contactPhone": "07835649274"
-      }
     }
   ]
 }
