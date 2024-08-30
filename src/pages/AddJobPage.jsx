@@ -13,8 +13,8 @@ const AddJobPage = ({ addJobSubmit }) => {
   const [contactEmail, setContactEmail] = useState("");
   const [contactPhone, setContactPhone] = useState("");
 
-  const [isSubmitting, setIsSubmitting] = useState(false); // Track submission status
-  const [redirect, setRedirect] = useState(false); // Track redirection
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [redirect, setRedirect] = useState(false);
 
   const navigate = useNavigate();
 
@@ -36,21 +36,21 @@ const AddJobPage = ({ addJobSubmit }) => {
     };
 
     try {
-      setIsSubmitting(true); // Set submitting status to true
-      await addJobSubmit(newJob); // Await the job submission
+      setIsSubmitting(true);
+      await addJobSubmit(newJob);
       toast.success("Job Added Successfully");
-      setRedirect(true); // Trigger redirection
+      setRedirect(true);
     } catch (error) {
       toast.error("Failed to add job");
       console.error("Error adding job:", error);
     } finally {
-      setIsSubmitting(false); // Reset submitting status
+      setIsSubmitting(false);
     }
   };
 
   useEffect(() => {
     if (redirect) {
-      navigate("/jobs"); // Navigate to the jobs page when redirect is true
+      navigate("/jobs");
     }
   }, [redirect, navigate]);
 
@@ -239,7 +239,7 @@ const AddJobPage = ({ addJobSubmit }) => {
               <button
                 className="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline"
                 type="submit"
-                disabled={isSubmitting} // Disable button during submission
+                disabled={isSubmitting}
               >
                 Add Job
               </button>
