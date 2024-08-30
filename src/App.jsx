@@ -19,7 +19,7 @@ const App = () => {
 
   console.log("Inside App component");
 
-  // Function to fetch jobs data
+
   const fetchJobs = async () => {
     try {
       const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/jobs`, {
@@ -34,18 +34,18 @@ const App = () => {
       }
 
       const data = await res.json();
-      setJobs(data); // Update state with fetched jobs
+      setJobs(data); 
     } catch (error) {
       console.error("Error fetching jobs:", error);
     }
   };
 
-  // Call fetchJobs on component mount
+
   useEffect(() => {
     fetchJobs();
   }, []);
 
-  // Add a new job
+
   const addJob = async (newJob) => {
     try {
       const res = await fetch(`${import.meta.env.VITE_API_BASE_URL}/jobs`, {

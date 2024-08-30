@@ -10,21 +10,23 @@ const EditJobPage = ({ updateJobSubmit }) => {
   const [description, setDescription] = useState(job.description);
   const [salary, setSalary] = useState(job.salary);
   const [companyName, setCompanyName] = useState(job.company.name);
-  const [companyDescription, setCompanyDescription] = useState(job.company.description);
+  const [companyDescription, setCompanyDescription] = useState(
+    job.company.description
+  );
   const [contactEmail, setContactEmail] = useState(job.company.contactEmail);
   const [contactPhone, setContactPhone] = useState(job.company.contactPhone);
 
-  const [isSubmitting, setIsSubmitting] = useState(false); // Track submission status
-  const [updatedJobId, setUpdatedJobId] = useState(null); // Track updated job ID
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [updatedJobId, setUpdatedJobId] = useState(null);
 
   const navigate = useNavigate();
 
   const submitForm = async (e) => {
     e.preventDefault();
 
-    if (isSubmitting) return; // Prevent multiple submissions
+    if (isSubmitting) return;
 
-    setIsSubmitting(true); // Set submitting status to true
+    setIsSubmitting(true);
 
     const updatedJob = {
       _id: job._id,
@@ -43,19 +45,19 @@ const EditJobPage = ({ updateJobSubmit }) => {
 
     try {
       const result = await updateJobSubmit(updatedJob);
-      setUpdatedJobId(result._id); // Set updated job ID
+      setUpdatedJobId(result._id);
       toast.success("Job updated successfully");
     } catch (error) {
       toast.error("Failed to update job");
       console.error("Error updating job:", error);
     } finally {
-      setIsSubmitting(false); // Reset submitting status
+      setIsSubmitting(false);
     }
   };
 
   useEffect(() => {
     if (updatedJobId) {
-      navigate(`/jobs/${updatedJobId}`); // Navigate to the updated job page
+      navigate(`/jobs/${updatedJobId}`);
     }
   }, [updatedJobId, navigate]);
 
@@ -64,10 +66,17 @@ const EditJobPage = ({ updateJobSubmit }) => {
       <div className="container m-auto max-w-2xl py-24">
         <div className="bg-white px-6 py-8 mb-4 shadow-md rounded-md border m-4 md:m-0">
           <form onSubmit={submitForm}>
-            <h2 className="text-3xl text-center font-semibold mb-6">Update Job</h2>
+            <h2 className="text-3xl text-center font-semibold mb-6">
+              Update Job
+            </h2>
 
             <div className="mb-4">
-              <label htmlFor="type" className="block text-gray-700 font-bold mb-2">Job Type</label>
+              <label
+                htmlFor="type"
+                className="block text-gray-700 font-bold mb-2"
+              >
+                Job Type
+              </label>
               <select
                 id="type"
                 name="type"
@@ -84,7 +93,12 @@ const EditJobPage = ({ updateJobSubmit }) => {
             </div>
 
             <div className="mb-4">
-              <label htmlFor="title" className="block text-gray-700 font-bold mb-2">Job Listing Name</label>
+              <label
+                htmlFor="title"
+                className="block text-gray-700 font-bold mb-2"
+              >
+                Job Listing Name
+              </label>
               <input
                 type="text"
                 id="title"
@@ -98,7 +112,12 @@ const EditJobPage = ({ updateJobSubmit }) => {
             </div>
 
             <div className="mb-4">
-              <label htmlFor="description" className="block text-gray-700 font-bold mb-2">Description</label>
+              <label
+                htmlFor="description"
+                className="block text-gray-700 font-bold mb-2"
+              >
+                Description
+              </label>
               <textarea
                 id="description"
                 name="description"
@@ -111,7 +130,12 @@ const EditJobPage = ({ updateJobSubmit }) => {
             </div>
 
             <div className="mb-4">
-              <label htmlFor="salary" className="block text-gray-700 font-bold mb-2">Salary</label>
+              <label
+                htmlFor="salary"
+                className="block text-gray-700 font-bold mb-2"
+              >
+                Salary
+              </label>
               <select
                 id="salary"
                 name="salary"
@@ -135,7 +159,12 @@ const EditJobPage = ({ updateJobSubmit }) => {
             </div>
 
             <div className="mb-4">
-              <label htmlFor="location" className="block text-gray-700 font-bold mb-2">Location</label>
+              <label
+                htmlFor="location"
+                className="block text-gray-700 font-bold mb-2"
+              >
+                Location
+              </label>
               <input
                 type="text"
                 id="location"
@@ -151,7 +180,12 @@ const EditJobPage = ({ updateJobSubmit }) => {
             <h3 className="text-2xl mb-5">Company Info</h3>
 
             <div className="mb-4">
-              <label htmlFor="company" className="block text-gray-700 font-bold mb-2">Company Name</label>
+              <label
+                htmlFor="company"
+                className="block text-gray-700 font-bold mb-2"
+              >
+                Company Name
+              </label>
               <input
                 type="text"
                 id="company"
@@ -164,7 +198,12 @@ const EditJobPage = ({ updateJobSubmit }) => {
             </div>
 
             <div className="mb-4">
-              <label htmlFor="company_description" className="block text-gray-700 font-bold mb-2">Company Description</label>
+              <label
+                htmlFor="company_description"
+                className="block text-gray-700 font-bold mb-2"
+              >
+                Company Description
+              </label>
               <textarea
                 id="company_description"
                 name="company_description"
@@ -177,7 +216,12 @@ const EditJobPage = ({ updateJobSubmit }) => {
             </div>
 
             <div className="mb-4">
-              <label htmlFor="contact_email" className="block text-gray-700 font-bold mb-2">Contact Email</label>
+              <label
+                htmlFor="contact_email"
+                className="block text-gray-700 font-bold mb-2"
+              >
+                Contact Email
+              </label>
               <input
                 type="email"
                 id="contact_email"
@@ -191,7 +235,12 @@ const EditJobPage = ({ updateJobSubmit }) => {
             </div>
 
             <div className="mb-4">
-              <label htmlFor="contact_phone" className="block text-gray-700 font-bold mb-2">Contact Phone</label>
+              <label
+                htmlFor="contact_phone"
+                className="block text-gray-700 font-bold mb-2"
+              >
+                Contact Phone
+              </label>
               <input
                 type="tel"
                 id="contact_phone"
