@@ -17,22 +17,22 @@ This is the front-end application for the Job Management system, built using Rea
 1. **Clone the Repository:**
 
    ```bash
-   git clone https://github.com/your-username/job-management-frontend.git
+   git clone https://github.com/Cwazycodes/React-Jobs
    cd job-management-frontend
 
-	2.	Install Dependencies:
-Make sure you have Node.js installed. Then, run:
+   	2.	Install Dependencies:
+   Make sure you have Node.js installed. Then, run:
+   ```
 
 npm install
 
+    3.	Configuration:
 
-	3.	Configuration:
 Set up the environment variables. Create a .env file in the root directory and add the following:
 
 VITE_API_BASE_URL=https://reactjobs-api.onrender.com/api
 
-
-	4.	Run the Application:
+    4.	Run the Application:
 
 npm run dev
 
@@ -40,11 +40,10 @@ The app will be available at http://localhost:3000.
 
 Usage
 
-	•	Home Page: Displays the list of job postings.
-	•	Add Job Page: Allows you to add a new job posting.
-	•	Edit Job Page: Allows you to edit an existing job posting.
-	•	Job Details Page: Shows details of a specific job posting.
-
+    •	Home Page: Displays the list of job postings.
+    •	Add Job Page: Allows you to add a new job posting.
+    •	Edit Job Page: Allows you to edit an existing job posting.
+    •	Job Details Page: Shows details of a specific job posting.
 
 Build
 
@@ -57,7 +56,6 @@ The production-ready build will be located in the dist directory.
 Contributing
 
 Feel free to open issues or submit pull requests if you find any bugs or have improvements.
-
 
 Contact
 
