@@ -2,22 +2,26 @@ import { useParams, useLoaderData, Link, useNavigate } from "react-router-dom";
 import { FaArrowLeft, FaMapMarker } from "react-icons/fa";
 import { toast } from "react-toastify";
 
-const JobPage = ({deleteJob}) => {
-  const navigate = useNavigate()
+const JobPage = ({ deleteJob }) => {
+  console.log("JobPage component rendered");
+  const navigate = useNavigate();
   const { id } = useParams();
+  console.log("JobPage ID from useParams:", id);
   const job = useLoaderData();
 
-  const onDeleteClick = (jobId) => {
-    const confirm = window.confirm('Are you sure you want to delete this listing?')
+  const onDeleteClick = async (jobId) => {
+    const confirm = window.confirm(
+      "Are you sure you want to delete this listing?"
+    );
 
-    if (!confirm) return
+    if (!confirm) return;
 
-    deleteJob(jobId)
+    await deleteJob(jobId);
 
-    toast.success('Job deleted successfully')
+    toast.success("Job deleted successfully");
 
-    navigate('/jobs')
-  }
+    navigate("/jobs");
+  };
 
   return (
     <>
@@ -38,11 +42,9 @@ const JobPage = ({deleteJob}) => {
             <main>
               <div className="bg-white p-6 rounded-lg shadow-md text-center md:text-left">
                 <div className="text-gray-500 mb-4">{job.type}</div>
-                <h1 className="text-3xl font-bold mb-4">
-                  {job.title}
-                </h1>
+                <h1 className="text-3xl font-bold mb-4">{job.title}</h1>
                 <div className="text-gray-500 mb-4 flex align-middle justify-center md:justify-start">
-                  <FaMapMarker className="text-orange-700 mr-1"/>
+                  <FaMapMarker className="text-orange-700 mr-1" />
                   <p className="text-orange-700">{job.location}</p>
                 </div>
               </div>
@@ -52,9 +54,7 @@ const JobPage = ({deleteJob}) => {
                   Job Description
                 </h3>
 
-                <p className="mb-4">
-                  {job.description}
-                </p>
+                <p className="mb-4">{job.description}</p>
 
                 <h3 className="text-indigo-800 text-lg font-bold mb-2">
                   Salary
@@ -71,9 +71,7 @@ const JobPage = ({deleteJob}) => {
 
                 <h2 className="text-2xl">{job.company.name}</h2>
 
-                <p className="my-2">
-                 {job.company.description}
-                </p>
+                <p className="my-2">{job.company.description}</p>
 
                 <hr className="my-4" />
 
@@ -85,18 +83,23 @@ const JobPage = ({deleteJob}) => {
 
                 <h3 className="text-xl">Contact Phone:</h3>
 
-                <p className="my-2 bg-indigo-100 p-2 font-bold">{job.company.contactPhone}</p>
+                <p className="my-2 bg-indigo-100 p-2 font-bold">
+                  {job.company.contactPhone}
+                </p>
               </div>
 
               <div className="bg-white p-6 rounded-lg shadow-md mt-6">
                 <h3 className="text-xl font-bold mb-6">Manage Job</h3>
                 <Link
-                  to={`/edit-job/${job.id}`}
+                  to={`/edit-job/${job._id}`}
                   className="bg-indigo-500 hover:bg-indigo-600 text-white text-center font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block"
                 >
                   Edit Job
                 </Link>
-                <button onClick={() => onDeleteClick(job.id)} className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block">
+                <button
+                  onClick={() => onDeleteClick(job._id)}
+                  className="bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline mt-4 block"
+                >
                   Delete Job
                 </button>
               </div>
@@ -109,9 +112,24 @@ const JobPage = ({deleteJob}) => {
 };
 
 const jobLoader = async ({ params }) => {
-  const res = await fetch(`/api/jobs/${params.id}`);
-  const data = await res.json();
-  return data;
+  console.log("JobLoader function called with params:", params);
+  try {
+    const jobId = params.id;
+    console.log(jobId, "ID!!");
+    const res = await fetch(
+      `${import.meta.env.VITE_API_BASE_URL}/jobs/${jobId}`
+    );
+    if (!res.ok) {
+      throw new Error(`Failed to load job: ${res.statusText}`);
+    }
+    const data = await res.json();
+    return data;
+  } catch (error) {
+    console.error("Error fetching job:", error);
+    throw new Response("Failed to load job", {
+      status: 500,
+      statusText: "Internal Server Error",
+    });
+  }
 };
-
 export { JobPage as default, jobLoader };
