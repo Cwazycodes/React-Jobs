@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
@@ -13,9 +13,12 @@ const AddJobPage = ({ addJobSubmit }) => {
   const [contactEmail, setContactEmail] = useState("");
   const [contactPhone, setContactPhone] = useState("");
 
+  const [isSubmitting, setIsSubmitting] = useState(false); // Track submission status
+  const [redirect, setRedirect] = useState(false); // Track redirection
+
   const navigate = useNavigate();
 
-  const submitForm = (e) => {
+  const submitForm = async (e) => {
     e.preventDefault();
 
     const newJob = {
@@ -32,12 +35,24 @@ const AddJobPage = ({ addJobSubmit }) => {
       },
     };
 
-    addJobSubmit(newJob);
-
-    toast.success("Job Added Successfully");
-
-    return navigate("/jobs");
+    try {
+      setIsSubmitting(true); // Set submitting status to true
+      await addJobSubmit(newJob); // Await the job submission
+      toast.success("Job Added Successfully");
+      setRedirect(true); // Trigger redirection
+    } catch (error) {
+      toast.error("Failed to add job");
+      console.error("Error adding job:", error);
+    } finally {
+      setIsSubmitting(false); // Reset submitting status
+    }
   };
+
+  useEffect(() => {
+    if (redirect) {
+      navigate("/jobs"); // Navigate to the jobs page when redirect is true
+    }
+  }, [redirect, navigate]);
 
   return (
     <section className="bg-indigo-50">
@@ -103,7 +118,7 @@ const AddJobPage = ({ addJobSubmit }) => {
 
             <div className="mb-4">
               <label
-                htmlFor="type"
+                htmlFor="salary"
                 className="block text-gray-700 font-bold mb-2"
               >
                 Salary
@@ -224,6 +239,7 @@ const AddJobPage = ({ addJobSubmit }) => {
               <button
                 className="bg-indigo-500 hover:bg-indigo-600 text-white font-bold py-2 px-4 rounded-full w-full focus:outline-none focus:shadow-outline"
                 type="submit"
+                disabled={isSubmitting} // Disable button during submission
               >
                 Add Job
               </button>
